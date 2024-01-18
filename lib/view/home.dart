@@ -1,5 +1,6 @@
 import 'package:ar_flutter/models/ar_object.dart';
 import 'package:ar_flutter/models/display_card_model.dart';
+import 'package:ar_flutter/view/object_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           'AR Vision',
@@ -43,9 +44,9 @@ class _HomePageState extends State<HomePage> {
               children: displaycard
                   .map(
                     (e) => InkWell(
-                      // onTap: () => onTap(e),
+                      onTap: () => onTap(e),
                       child: Card(
-                        color: e.isActive ? Colors.red : null,
+                        color: e.isActive ? Colors.green : null,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -69,20 +70,20 @@ class _HomePageState extends State<HomePage> {
       ]),
     );
   }
-  //   void onTap(DisplayCardModel e) {
-  //   setState(() {
-  //     e.isActive = !e.isActive;
-  //   });
-  //   Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (context) => ARObjectsScreen(
-  //                 object: e.object,
-  //                 isLocal: e.isLocal,
-  //               ))).then((value) {
-  //     setState(() {
-  //       e.isActive = !e.isActive;
-  //     });
-  //   });
-  // }
+
+  void onTap(DisplayCardModel e) {
+    setState(() {
+      e.isActive = !e.isActive;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ARObjectScreen(
+                  object: e.object,
+                ))).then((value) {
+      setState(() {
+        e.isActive = !e.isActive;
+      });
+    });
+  }
 }
